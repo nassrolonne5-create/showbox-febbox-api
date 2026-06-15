@@ -11,7 +11,8 @@ WORKDIR /app/api
 RUN npm install
 
 WORKDIR /app/bypass
-RUN python3 -m venv venv && . venv/bin/activate && pip install -r requirements.txt
+# 👇 UPDATED LINE: Installs requirements AND fetches the Camoufox stealth browser inside the venv
+RUN python3 -m venv venv && . venv/bin/activate && pip install -r requirements.txt && python3 -m camoufox fetch
 
 WORKDIR /app
 RUN echo '#!/bin/bash' > start.sh && \
