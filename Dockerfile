@@ -1,5 +1,6 @@
 FROM node:18-bullseye
 
+# Install Python
 RUN apt-get update && apt-get install -y python3 python3-venv python3-pip
 
 WORKDIR /app
@@ -11,8 +12,15 @@ WORKDIR /app/api
 RUN npm install
 
 WORKDIR /app/bypass
-# 👇 UPDATED LINE: Installs requirements AND fetches the Camoufox stealth browser inside the venv
-RUN python3 -m venv venv && . venv/bin/activate && pip install -r requirements.txt && python3 -m camoufox fetch
+# 👇 THE BULLETPROOF LAYER: 
+# 1. Installs all Python packages
+# 2. Installs Linux OS libraries for the browser (install-deps)
+# 3. Fetches the stealth browser (camoufox)
+RUN python3 -m venv venv && \
+    . venv/bin/activate && \
+    pip install -r requirements.txt && \
+    python3 -m playwright install-deps && \
+    python3 -m camoufox fetch
 
 WORKDIR /app
 RUN echo '#!/bin/bash' > start.sh && \
