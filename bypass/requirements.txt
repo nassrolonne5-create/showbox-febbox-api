@@ -2,4 +2,10 @@ DrissionPage==4.0.5.6
 fastapi
 uvicorn
 requests
+playwright
+playwright-captcha
 camoufox
+pydantic
+beautifulsoup4
+lxml
+
