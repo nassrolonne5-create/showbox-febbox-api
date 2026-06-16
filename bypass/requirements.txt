@@ -8,4 +8,4 @@ camoufox
 pydantic
 beautifulsoup4
 lxml
-
+curl_cffi
